@@ -1,88 +1,10 @@
-//DAILY QUESTION
-
-// FutureBuilder<Map<String, dynamic>>(
-//             future: _dailyQuestion,
-//             builder: (context, snapshot) {
-//               if (snapshot.connectionState == ConnectionState.waiting) {
-//                 return Center(child: CircularProgressIndicator());
-//               } else if (snapshot.hasError) {
-//                 return Center(child: Text('Error: ${snapshot.error}'));
-//               } else if (snapshot.hasData) {
-//                 var data = snapshot.data!;
-//                 return Text('Daily Question: ${data['question']}');
-//               } else {
-//                 return Center(child: Text('No daily question available'));
-//               }
-//             },
-//           ),"
-
-//TALK TO AI BUTTON
-// Center(
-//   child: ElevatedButton(
-//     onPressed: () {
-//       Navigator.push(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => GenerativeAISample(username: widget.username),,
-//         ),
-//       );
-//     },
-//     style: ElevatedButton.styleFrom(
-//       backgroundColor: Colors.lightBlue, // Use backgroundColor instead of primary
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-//       padding: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-//     ),
-//     child: Text('Continue', style: TextStyle(fontSize: 18)),
-//   ),
-// ),
-
-//EXTRABUTTONS
-          // FutureBuilder<List<dynamic>>(
-          //   future: _problems,
-          //   builder: (context, snapshot) {
-          //     if (snapshot.connectionState == ConnectionState.waiting) {
-          //       return Center(child: CircularProgressIndicator());
-          //     } else if (snapshot.hasError) {
-          //       return Center(child: Text('Error: ${snapshot.error}'));
-          //     } else if (snapshot.hasData) {
-          //       var problems = snapshot.data!;
-          //       return Column(
-          //         crossAxisAlignment: CrossAxisAlignment.start,
-          //         children: problems.map((problem) => Text('Problem: ${problem['title']}')).toList(),
-          //       );
-          //     } else {
-          //       return Center(child: Text('No problems available'));
-          //     }
-          //   },
-          // ),
-          // SizedBox(height: 20),
-          // FutureBuilder<List<dynamic>>(
-          //   future: _filteredProblems,
-          //   builder: (context, snapshot) {
-          //     if (snapshot.connectionState == ConnectionState.waiting) {
-          //       return Center(child: CircularProgressIndicator());
-          //     } else if (snapshot.hasError) {
-          //       return Center(child: Text('Error: ${snapshot.error}'));
-          //     } else if (snapshot.hasData) {
-          //       var problems = snapshot.data!;
-          //       return Column(
-          //         crossAxisAlignment: CrossAxisAlignment.start,
-          //         children: problems.map((problem) => Text('Filtered Problem: ${problem['title']}')).toList(),
-          //       );
-          //     } else {
-          //       return Center(child: Text('No filtered problems available'));
-          //     }
-          //   },
-          // ),
-
-
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:url_launcher/link.dart';
 import 'main.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class GenerativeAISample extends StatelessWidget {
   const GenerativeAISample({super.key});
@@ -92,6 +14,7 @@ class GenerativeAISample extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'LeetGO',
+      await dotenv.load();
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.dark,
@@ -99,13 +22,13 @@ class GenerativeAISample extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const ChatScreen(title: 'LeetGO'),
+      home: const ChatScreen(title: 'LeetGO', apiKey: ),
     );
   }
 }
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key, required this.title});
+  const ChatScreen({super.key, required this.title, required this.apiKey});
 
   final String title;
 
